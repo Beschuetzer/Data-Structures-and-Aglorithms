@@ -33,16 +33,50 @@ def merge(list1, list2):
   else:
     return mergeInForLoop(list2, list1)
 
-def mergeInForLoop(larger, smaller):
+def mergeInForLoop(longer, shorter):
   '''
   executes the logic necessary to merge the two lists
   '''
-  for i in range(len(larger)):
-    pass
-    #is the 1st item in 2nd array smaller than item at index 'i' but greater than item at index 'i-1' or greater than index 'i' and less than 'i + 1'?
+
+  currentIndexLarger = 0
+  for i in range(len(shorter)):
+    #there are two cases to handle:
+    # both are len 1
+    if (len(shorter) == 1 and (len(longer) == 1 or len(longer) == 0)) or (len(longer) == 1 and (len(shorter) == 1 or len(shorter) == 0)):
+      if longer[0] > shorter[0]: return [shorter[0], longer[0]]
+      if longer[0] <= shorter[0]: return [longer[0], shorter[0]]
+
+    # if 1 is len 1 and the other is 
+    # elif len(shorter) == 1 and len(longer) != 1 or len(shorter) != 1 and len(longer) == 1:
+      # pass
+    #otherwise
+    else:
+      #this only runs one time and finds the index where the first item in smaller is larger than 'bigger[index]' and smaller than 'bigger[index + 1]'
+      if currentIndexLonger == 0: currentIndexLonger = getStartIndex(longer, shorter[i])
+      #is the 1st item in 2nd array smaller than item at index 'i' but greater than item at index 'i-1' or greater than index 'i' and less than 'i + 1'?
+
+      pass
+ 
   #if so,
 
 
+def getStartIndex(longer, valueToMerge):
+  '''
+  finds the index at which the item being merged is less than i + 1 but greater than or equal to i
 
+  currentIndexlonger is the index in longer that we are currently at (we are assuming that longer and shorter are in ascending order)
+  '''
+  #dynamically start at either the front or the end depending on what the item to merge is and the first and last items are
+
+  #if valueToMerge is longer than the last item, return len(longer)
+  if valueToMerge > longer[-1]: return len(longer)
+  #if valueToMerge is small than the first item, return 0
+  if valueToMerge < longer[0]: return 0
+
+  #start from the left side and return the index, where longer[index] is smaller than valueTomerge and longer[index + 1] is greater
+  for i in range(len(longer)):
+    longerValue = longer[i]
+
+  #how are python list arguments passed? by ref or by val?
     
     
