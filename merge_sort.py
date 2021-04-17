@@ -68,15 +68,39 @@ def getStartIndex(longer, valueToMerge):
   '''
   #dynamically start at either the front or the end depending on what the item to merge is and the first and last items are
 
-  #if valueToMerge is longer than the last item, return len(longer)
-  if valueToMerge > longer[-1]: return len(longer)
-  #if valueToMerge is small than the first item, return 0
-  if valueToMerge < longer[0]: return 0
+  middleIndex = len(longer) // 2
+  middleValue  = longer[middleIndex]
+
+  #return early easy cases
+  if valueToMerge <= longer[0]: return 0
+  if valueToMerge >= longer[-1]: return len(longer)
+  if valueToMerge == middleIndex: return middleIndex
+
+  #change start index of loop depending on middle value
+  loopStartIndex = 0
+  loopEndIndex = len (longer)
+  if valueToMerge < middleValue:
+    loopEndIndex = middleIndex
+  else:
+    loopStartIndex = middleIndex + 1
 
   #start from the left side and return the index, where longer[index] is smaller than valueTomerge and longer[index + 1] is greater
-  for i in range(len(longer)):
-    longerValue = longer[i]
+  for i in range(loopStartIndex, loopEndIndex):
+    valueInLonger = longer[i]
+    nextValueInLonger = -1
+    if (i + 1) <= len(longer): nextValueInLonger = longer[i + 1]
 
-  #how are python list arguments passed? by ref or by val?
+
+    if valueToMerge > valueInLonger:
+      if nextValueInLonger == -1:
+        return len(longer)
+      else:
+        if valueToMerge <= nextValueInLonger:
+
+          
+
+
+
+#how are python list arguments passed? by ref or by val?
     
     
