@@ -18,7 +18,31 @@ def merge_sort(list):
   left_result = merge_sort(left)
   right_result = merge_sort(right)
 
-  return 
+  return merge(left_result, right_result)
+
+
+
+
+def merge(list1, list2):
+  #iterate through each index in the shorter list
+  listOneIsLonger = True
+  if len(list2) > len(list1): listOneIsLonger = False
+
+  if listOneIsLonger is True: 
+    return mergeInForLoop(list1, list2)
+  else:
+    return mergeInForLoop(list2, list1)
+
+def mergeInForLoop(larger, smaller):
+  '''
+  executes the logic necessary to merge the two lists
+  '''
+  for i in range(len(larger)):
+    pass
+    #is the 1st item in 2nd array smaller than item at index 'i' but greater than item at index 'i-1' or greater than index 'i' and less than 'i + 1'?
+  #if so,
+
+
 
     
     
