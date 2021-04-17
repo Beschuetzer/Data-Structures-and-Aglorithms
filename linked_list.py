@@ -69,7 +69,7 @@ class LinkedList:
     '''
     inserts data at position
     position starts at 0 (0 == head)
-    runs at O(n) time
+    inserting take O(1) time but finding the correct position takes O(n) time
     '''
     new_node = Node(data)
     count = 0
@@ -83,9 +83,7 @@ class LinkedList:
       print('current = {0}'.format(current))
       if position == 0:
           #when inserting a new head
-          previous_head = self.head
-          self.head = new_node
-          self.head.next_node = previous_head
+          self.add(data)
           return count
       elif count == position:        
         previous.next_node = new_node 
@@ -104,6 +102,47 @@ class LinkedList:
 
     return -1
 
+  def remove(self, data):
+    '''
+    Removes the node from the list that contains data
+    '''
+    current = self.head
+    previous = None
+
+    while current:
+      if current.data == data:
+        if current is self.head:
+          self.head = current.next_node
+        else:
+          previous.next_node = current.next_node
+
+        del current
+        return
+
+      previous = current
+      current = current.next_node
+
+  def remove_at_index(self, index): 
+    '''
+    removes the node at index
+    '''
+    current = self.head
+    previous = None
+    count = 0
+    while current:
+      print('current = {0}'.format(current))
+      if count == index:
+        if current is self.head:
+          self.head = current.next_node
+        else:
+          previous.next_node = current.next_node
+
+        del current
+        return
+
+      previous = current
+      current = current.next_node
+      count += 1
 
   def __repr__(self):
     '''
@@ -133,5 +172,7 @@ linked_list = LinkedList()
 linked_list.add(31)
 linked_list.add(32)
 linked_list.add(33)
-linked_list.insert(34,3)
+linked_list.insert(34,-1)
+linked_list.remove(34)
+linked_list.remove_at_index(0)
 print(linked_list)
