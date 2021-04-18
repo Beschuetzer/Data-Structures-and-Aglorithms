@@ -27,8 +27,13 @@ class own_merge_sort(unittest.TestCase):
     self.actual = merge_sort.merge_sort(self.list)
     self.expected = [1,4,9]
     self.assertListEqual(self.actual, self.expected)
+  def test_same(self):
+    self.list = [9, 1, 9, 1,9,2,4,7,4,9]
+    self.actual = merge_sort.merge_sort(self.list)
+    self.expected = sorted(self.list, reverse=False)
+    self.assertListEqual(self.actual, self.expected)
   def test_random(self):
-    self.list = getRandomList(100)
+    self.list = getRandomList(500)
     self.actual = merge_sort.merge_sort(self.list)
     self.expected = sorted(self.list, reverse=False)
     self.assertListEqual(self.actual, self.expected)
