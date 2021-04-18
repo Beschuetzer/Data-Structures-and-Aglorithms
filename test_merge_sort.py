@@ -32,8 +32,14 @@ class own_merge_sort(unittest.TestCase):
     self.actual = merge_sort.merge_sort(self.list)
     self.expected = sorted(self.list, reverse=False)
     self.assertListEqual(self.actual, self.expected)
+  def test_failed_once_upon_a_time(self):
+    self.list = [0, 3, 4, 2, 1, 3, 1, 2, 3, 4]
+    self.actual = merge_sort.merge_sort(self.list)
+    self.expected = [0, 1, 1, 2, 2, 3, 3, 3, 4, 4]
+    self.assertListEqual(self.actual, self.expected)
+
   def test_random(self):
-    self.list = getRandomList(500)
+    self.list = getRandomList(10000)
     self.actual = merge_sort.merge_sort(self.list)
     self.expected = sorted(self.list, reverse=False)
     self.assertListEqual(self.actual, self.expected)
@@ -47,7 +53,7 @@ class own_merge_sort(unittest.TestCase):
 
 def getRandomList(size):
   result = []
-  rangeMax = 10**3
+  rangeMax = 10**2
   print('range = {0}'.format(range))
   for i in range(size):
     randomInt = random.randrange(0, rangeMax, 1)

@@ -92,8 +92,9 @@ def getInsertionIndex(startIndex, longer, valueToMerge):
     # print('2')
     
     return len(longer)
-  if valueToMerge == middleIndex: 
+  if valueToMerge == middleValue: 
     # print('3')
+    # print('middleIndex = {0}'.format(middleIndex))
     return middleIndex
 
   #change start index of loop depending on middle value
@@ -121,16 +122,21 @@ def getInsertionIndex(startIndex, longer, valueToMerge):
         return len(longer)
       else:
         if valueToMerge <= nextValueInLonger: 
+          # print('nextValueInLonger = {0}'.format(nextValueInLonger))
+          # print('i = {0}'.format(i))
           # print(5)
           return i + 1
+        # else:
+          # print("unaccounted for-----------------------------")
+          # print('valueToMerge = {0}'.format(valueToMerge))
     else:
-      print(6)
+      # print(6)
       return i 
 
   
   #this should never actually be reached but just in case
   # print('Assumption 2 violated');
-  return len(longer)
+  return i
 
           
 
