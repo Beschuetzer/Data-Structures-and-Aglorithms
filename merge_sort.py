@@ -25,6 +25,10 @@ def merge_sort(list):
 
 def merge(list1, list2):
   #iterate through each index in the shorter list
+  print('list1 = {0}'.format(list1))
+  print('list2 = {0}'.format(list2))
+
+  #figuring out which list is longer and then calling mergeInForLoop()
   listOneIsLonger = True
   if len(list2) > len(list1): listOneIsLonger = False
 
@@ -37,8 +41,7 @@ def mergeInForLoop(longer, shorter):
   '''
   executes the logic necessary to merge the two lists
   '''
-
-  currentIndexLarger = 0
+  insertionIndex = -1
   for i in range(len(shorter)):
     #there are two cases to handle:
     # both are len 1
@@ -52,21 +55,25 @@ def mergeInForLoop(longer, shorter):
     #otherwise
     else:
       #this only runs one time and finds the index where the first item in smaller is larger than 'bigger[index]' and smaller than 'bigger[index + 1]'
-      if currentIndexLonger == 0: currentIndexLonger = getStartIndex(longer, shorter[i])
-      #is the 1st item in 2nd array smaller than item at index 'i' but greater than item at index 'i-1' or greater than index 'i' and less than 'i + 1'?
+      # if insertionIndex == -1: 
+        insertionIndex = getInsertionIndex(insertionIndex, longer, shorter[i])
+        longer.insert(insertionIndex, shorter[i])
+      # else:
+        #is the 1st item in 2nd array smaller than item at index 'i' but greater than item at index 'i-1' or greater than index 'i' and less than 'i + 1'?
+        # pass
 
-      pass
+  return longer
  
   #if so,
 
 
-def getStartIndex(longer, valueToMerge):
+def getInsertionIndex(startIndex, longer, valueToMerge):
   '''
   finds the index at which the item being merged is less than i + 1 but greater than or equal to i
 
   currentIndexlonger is the index in longer that we are currently at (we are assuming that longer and shorter are in ascending order)
   '''
-  #dynamically start at either the front or the end depending on what the item to merge is and the first and last items are
+  #dynamically start at either the front or the end depending on what the item to merge is and the first and last items are  
 
   middleIndex = len(longer) // 2
   middleValue  = longer[middleIndex]
@@ -82,20 +89,29 @@ def getStartIndex(longer, valueToMerge):
   if valueToMerge < middleValue:
     loopEndIndex = middleIndex
   else:
-    loopStartIndex = middleIndex + 1
+    if startIndex == -1: loopStartIndex = middleIndex + 1
+    else: loopStartIndex = startIndex
 
-  #start from the left side and return the index, where longer[index] is smaller than valueTomerge and longer[index + 1] is greater
+  #start from the left side and return the index, where longer[index] is smaller than valueToMerge and longer[index + 1] is greater
   for i in range(loopStartIndex, loopEndIndex):
     valueInLonger = longer[i]
-    nextValueInLonger = -1
-    if (i + 1) <= len(longer): nextValueInLonger = longer[i + 1]
 
+    #here -1 is used as a flag to indicate there is no value
+    nextValueInLonger = -1        
+    if (i + 1) < len(longer): nextValueInLonger = longer[i + 1]
 
+    #should never have to deal with valueToMerge < valueInLonger
     if valueToMerge > valueInLonger:
       if nextValueInLonger == -1:
         return len(longer)
       else:
-        if valueToMerge <= nextValueInLonger:
+        if valueToMerge <= nextValueInLonger: return i
+    else:
+      print('Assumption 1 violated!')
+  
+  #this should never actually be reached but just in case
+  print('Assumption 2 violated');
+  return len(longer)
 
           
 
