@@ -8,12 +8,13 @@ def merge_sort(list):
   Divide: first find the midpoint of the list and divide into sublists
   Conquer: recursively sort the sublists created in previous steps
   Combine: Merge the sorted sublists created in previous step
+
+  runs in O(n log n) time
+  split runs in O(log n) and merge in O(n)
   '''
   if len(list) <= 1: return list
 
-  middleIndex = len(list) // 2
-  left = list[:middleIndex]
-  right = list[middleIndex:]
+  left, right = split(list)
 
   left_result = merge_sort(left)
   right_result = merge_sort(right)
@@ -21,8 +22,13 @@ def merge_sort(list):
   return merge(left_result, right_result)
 
 
+def split(list):
+  middleIndex = len(list) // 2
+  left = list[:middleIndex]
+  right = list[middleIndex:]
+  return left, right
 
-
+#region my own attemp to implement
 def merge(list1, list2):
   #iterate through each index in the shorter list
   # print('list1 = {0}'.format(list1))
@@ -137,11 +143,45 @@ def getInsertionIndex(startIndex, longer, valueToMerge):
   #this should never actually be reached but just in case
   # print('Assumption 2 violated');
   return i
-
+#endregion
           
 
 
+def merge_sort_example(list):
+  '''
+  copied from video example
+  '''
+  if len(list) <= 1: return list
 
-#how are python list arguments passed? by ref or by val?
-    
-    
+  left, right = split(list)
+
+  left_result = merge_sort(left)
+  right_result = merge_sort(right)
+
+  return merge_video_example(left_result, right_result)
+
+def merge_video_example(left, right) :
+  l = []   
+  i = 0
+  j = 0
+  
+  #equally long lists 
+  while i < len(left) and j < len(right):
+    if left[i] < right[j]:
+      l.append(left[i])
+      i += 1
+    else:
+      l.append(right[j])
+      j += 1
+
+  #right list longer
+  while i < len(left):
+    l.append(left[i])
+    i += 1
+
+  #left list longer
+  while j < len(right):
+    l.append(right[j])
+    j += 1
+
+  return l

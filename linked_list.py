@@ -144,6 +144,18 @@ class LinkedList:
       current = current.next_node
       count += 1
 
+  def get_node_at_index(self, index):
+    '''
+    returns the node at index
+    '''
+    current = self.head
+    i = 0
+
+    while current:
+      if index == i: return current
+      i+=1
+      current = current.next_node
+
   def __repr__(self):
     '''
     returns a string representation of the list 
@@ -176,3 +188,4 @@ linked_list.insert(34,-1)
 linked_list.remove(34)
 linked_list.remove_at_index(0)
 print(linked_list)
+print(linked_list.get_node_at_index(1))
