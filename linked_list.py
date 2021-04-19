@@ -176,6 +176,11 @@ class LinkedList:
       current = current.next_node
     return "->".join(nodes)
 
+  def __eq__(self, other):
+    if isinstance(other, LinkedList):
+      if self.__repr__() == other.__repr__(): return True
+    return False
+
 linked_list = LinkedList()
 
 # linked_list.add(20)
@@ -189,3 +194,4 @@ linked_list.remove(34)
 linked_list.remove_at_index(0)
 print(linked_list)
 print(linked_list.get_node_at_index(1))
+
