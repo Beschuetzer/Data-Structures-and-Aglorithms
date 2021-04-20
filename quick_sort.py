@@ -1,4 +1,5 @@
-import json
+import json, time
+from os import times
 
 def own_quick_sort(list):
   '''
@@ -54,7 +55,20 @@ def get_items(pivot, list, get_less_than = True):
   
   return items
 
-
+def example_quick_sort(list):
+  if len(list) <= 1: 
+    return list
+  less_than_pivot = []
+  greater_than_pivot = []
+  pivot = list[0]
+  for i in range(1, len(list)):
+    if i <= pivot: less_than_pivot.append(list[i])
+    else: greater_than_pivot.append(list[i])
+  
+  # print('%15s %1s %-15s' % (less_than_pivot, pivot, greater_than_pivot))
+  less_result = example_quick_sort(less_than_pivot)
+  greater_result = example_quick_sort(greater_than_pivot)
+  return less_result + [pivot] + greater_result
 
 # numbers = test_merge_sort.getRandomList(20000)
 # numbers = [1.2, 2.1, .2, .1, .55, 1, 2.3, 55, 43]
@@ -64,8 +78,15 @@ numbers = []
 with open('numbers-1million.json', 'r') as f:
   numbers = json.load(f)
 
+start_own = time.time()
 sorted = own_quick_sort(numbers)
-print(f"len(numbers) = {len(numbers)}")
-print(f"len(sorted) = {len(sorted)}")
+print (f'Time elapsed own implementation: {time.time() - start_own}')
+
+# start_example = time.time()
+# sorted2 = example_quick_sort(numbers)
+# print (f'Time elapsed example implementation: {time.time() - start_example}')
+
+# print(f"len(numbers) = {len(numbers)}")
+# print(f"len(sorted) = {len(sorted)}")
 # print(f"sorted = {sorted}")
 
