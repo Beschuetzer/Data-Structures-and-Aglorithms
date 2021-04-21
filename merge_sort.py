@@ -1,3 +1,4 @@
+import json, time
 #the merge sort algorithm divides the array into single arrays then merges the individual arrays one at a time while sorting at the same time
 
 def merge_sort(list):
@@ -185,3 +186,46 @@ def merge_video_example(left, right) :
     j += 1
 
   return l
+
+
+def merge_sort_example2(list):
+  if len(list) <= 1: return list
+
+  #note: splitting
+  middle_index = len(list) // 2
+  left_values = merge_sort_example2(list[:middle_index])
+  right_values = merge_sort_example2(list[middle_index:])
+  # print('%15s %-15s' % (left_values, right_values))
+
+  #note: merging
+  sorted_values = []
+  left_index = 0
+  right_index = 0
+  while left_index < len(left_values) and right_index < len(right_values):
+    if left_values[left_index] < right_values[right_index]:
+      sorted_values.append(left_values[left_index])
+      left_index += 1
+    else:
+      sorted_values.append(right_values[right_index])
+      right_index += 1
+
+  sorted_values += left_values[left_index:]
+  sorted_values += right_values[right_index:]
+  return sorted_values
+
+numbers = []
+with open('numbers-1million.json') as f:
+  numbers = json.load(f)
+
+# start_own = time.time()
+# sorted = merge_sort(numbers)
+# print (f'Time elapsed own implementation: {time.time() - start_own}')
+
+# start_example = time.time()
+# sorted2 = merge_sort_example(numbers)
+# print (f'Time elapsed example implementation: {time.time() - start_example}')
+
+start_example2 = time.time()
+sorted3 = merge_sort_example2(numbers)
+# sorted3 = merge_sort_example2([1,2,5,4,3,1,2,9,8,7])
+print (f'Time elapsed example2 implementation: {time.time() - start_example2}')

@@ -39,4 +39,3 @@ def binary_search(list, target):
 
   #returning None if target not present in list
   return None
-
