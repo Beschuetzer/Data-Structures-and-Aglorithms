@@ -1,11 +1,12 @@
 "use strict";
 // A stack is a one-ended linear data structure which models a real-world stack, by having two primary operations (push and pop);  Also known as a FILO (first-in-last-out) or LIFO (last-in-first-out) structure
-var StackItemTypes;
-(function (StackItemTypes) {
-    StackItemTypes["number"] = "number";
-    StackItemTypes["object"] = "object";
-    StackItemTypes["string"] = "string";
-})(StackItemTypes || (StackItemTypes = {}));
+var InstanceTypes;
+(function (InstanceTypes) {
+    InstanceTypes["number"] = "number";
+    InstanceTypes["object"] = "object";
+    InstanceTypes["string"] = "string";
+    InstanceTypes["date"] = "date";
+})(InstanceTypes || (InstanceTypes = {}));
 ;
 //A dynamic-array-based Stack implementation:
 class Stack {
@@ -44,7 +45,7 @@ class Stack {
         return this.data.pop();
     }
 }
-const stack = new Stack(StackItemTypes.number);
+const stack = new Stack(InstanceTypes.number);
 console.log(stack.push(1));
 console.log(stack.push(2));
 console.log(stack.push(3));
