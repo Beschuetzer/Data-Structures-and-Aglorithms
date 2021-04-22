@@ -1,6 +1,6 @@
 // A stack is a one-ended linear data structure which models a real-world stack, by having two primary operations (push and pop);  Also known as a FILO (first-in-last-out) or LIFO (last-in-first-out) structure
 
-enum InstanceTypes { number = 'number', object = 'object', string = 'string', date = 'date' };
+export enum InstanceTypes { number = 'number', object = 'object', string = 'string', date = 'date' };
 
 //A dynamic-array-based Stack implementation:
 class Stack<T> {
