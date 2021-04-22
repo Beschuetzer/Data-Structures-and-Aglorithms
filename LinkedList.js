@@ -68,15 +68,19 @@ class LinkedList {
         if (index > this._size - 1) {
             return this._insert(data, this._tail);
         }
-        //TODO: Finish regular case logic:
-        // this._insert(data, current)
+        let traverser = this._head;
+        while (traverser) {
+            //TODO: Finish regular case logic:
+            //need to traverse to correct node by checking nextNode  and seeing if it match the data, if it does do the swap
+        }
+        // this._insert(data, traverser)
     }
     searchFromStart(data) {
         if (typeof data !== this._type)
             return this._TYPE_ERROR;
         let traverser = this._head;
         let count = 0;
-        while (traverser.data) {
+        while (traverser) {
             if (data === traverser.data)
                 return count;
             count++;
