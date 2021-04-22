@@ -37,27 +37,54 @@ class LinkedList <T> {
     this._tail = new LinkedListNode(null) as any;
   }
 
-  public insert(data: T){
+  private _insert(data: T, nodeToInsertAt: LinkedListNode <T>) {
     //Inserts at head O(1)
     if (typeof data !== this._type) return this._TYPE_ERROR;
-    if (this._head.data == null) {
-      this._size++;
-      this._tail.data = data;
-      return this._head.data = data;
-    }
-    
-    //NOTE: THis code may be buggy
-    const previousHead = this._head;
     const newHead = new LinkedListNode(data);
-    newHead.nextNode = previousHead;
-    previousHead.previousNode = newHead;
-    this._head = newHead;
+
+    if (nodeToInsertAt === this._tail) {
+      newHead.previousNode = nodeToInsertAt;
+      nodeToInsertAt.previousNode = newHead;
+      this._tail = newHead;
+    }
+    else {
+      newHead.nextNode = nodeToInsertAt;
+      nodeToInsertAt.previousNode = newHead;
+      this._head = newHead;
+    }
 
     if (this._size === 1) {
       this._tail.previousNode = newHead;
     }
 
     this._size++;
+  }
+
+  public insert(data: T){
+    if (this._head.data == null) {
+      this._size++;
+      this._tail.data = data;
+      return this._head.data = data;
+    }
+    
+    this._insert(data, this._head);
+  }
+
+  public insertAtIndex(data: T, index: number) {
+    //inserts at index if it exists otherwise, inserts after tail
+    
+    if (this._head.data == null) {
+      this._size++; 
+      this._tail.data = data;
+      return this._head.data = data;
+    }
+
+    if (index > this._size - 1) {
+      return this._insert(data, this._tail);
+    }
+
+    //TODO: Finish regular case logic:
+    // this._insert(data, current)
   }
 
   public searchFromStart(data: T) {
@@ -86,18 +113,6 @@ class LinkedList <T> {
     return -1;
   }
 
-  public insertAtIndex(data: T, index: number) {
-    if (typeof data !== this._type) return this._TYPE_ERROR;
-    if (this._head.data == null) {
-      this._size++; 
-      return this._head.data = data;
-    }
-    if (index > this._size - 1) return this._tail
-
-    this._size++;
-
-  }
-
   public delete() {
     this._size--;
   }
@@ -111,7 +126,9 @@ class LinkedList <T> {
 const ll = new LinkedList(InstanceTypes.number);
 ll.insert(1)
 ll.insert(2)
-ll.insert(3)
+ll.insertAtIndex(3,4)
+// ll.insert(2)
+// ll.insert(3)
 console.log(ll)
 
 // console.log('ll.size =', ll.size);

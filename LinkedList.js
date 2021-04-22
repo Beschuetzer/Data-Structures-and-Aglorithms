@@ -30,25 +30,46 @@ class LinkedList {
     get tail() {
         return this._tail;
     }
-    insert(data) {
+    _insert(data, nodeToInsertAt) {
         //Inserts at head O(1)
         if (typeof data !== this._type)
             return this._TYPE_ERROR;
+        const newHead = new LinkedListNode(data);
+        if (nodeToInsertAt === this._tail) {
+            newHead.previousNode = nodeToInsertAt;
+            nodeToInsertAt.previousNode = newHead;
+            this._tail = newHead;
+        }
+        else {
+            newHead.nextNode = nodeToInsertAt;
+            nodeToInsertAt.previousNode = newHead;
+            this._head = newHead;
+        }
+        if (this._size === 1) {
+            this._tail.previousNode = newHead;
+        }
+        this._size++;
+    }
+    insert(data) {
         if (this._head.data == null) {
             this._size++;
             this._tail.data = data;
             return this._head.data = data;
         }
-        //NOTE: THis code may be buggy
-        const previousHead = this._head;
-        const newHead = new LinkedListNode(data);
-        newHead.nextNode = previousHead;
-        previousHead.previousNode = newHead;
-        this._head = newHead;
-        if (this._size === 1) {
-            this._tail.previousNode = newHead;
+        this._insert(data, this._head);
+    }
+    insertAtIndex(data, index) {
+        //inserts at index if it exists otherwise, inserts after tail
+        if (this._head.data == null) {
+            this._size++;
+            this._tail.data = data;
+            return this._head.data = data;
         }
-        this._size++;
+        if (index > this._size - 1) {
+            return this._insert(data, this._tail);
+        }
+        //TODO: Finish regular case logic:
+        // this._insert(data, current)
     }
     searchFromStart(data) {
         if (typeof data !== this._type)
@@ -76,17 +97,6 @@ class LinkedList {
         }
         return -1;
     }
-    insertAtIndex(data, index) {
-        if (typeof data !== this._type)
-            return this._TYPE_ERROR;
-        if (this._head.data == null) {
-            this._size++;
-            return this._head.data = data;
-        }
-        if (index > this._size - 1)
-            return this._tail;
-        this._size++;
-    }
     delete() {
         this._size--;
     }
@@ -97,7 +107,9 @@ class LinkedList {
 const ll = new LinkedList(Stack_js_1.InstanceTypes.number);
 ll.insert(1);
 ll.insert(2);
-ll.insert(3);
+ll.insertAtIndex(3, 4);
+// ll.insert(2)
+// ll.insert(3)
 console.log(ll);
 // console.log('ll.size =', ll.size);
 // ll.insert(3)
